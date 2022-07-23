@@ -1,3 +1,13 @@
-.container {
-  text-align: center;
+.sidebar {
+  :global {
+    .sidebar.visible + .pusher > .page-root {
+      width: calc(100% - 150px);
+    }
+
+    .page-root {
+      width: 100%;
+      transition: all 0.5s ease;
+      padding: 1rem !important;
+    }
+  }
 }
