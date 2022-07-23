@@ -1,0 +1,21 @@
+@import "~/src/style/variables.scss";
+
+.container {
+  :global {
+    .header {
+      margin: 0 0 0.5rem !important;
+    }
+  }
+}
+
+.table {
+  margin: 0 !important;
+  box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%) !important;
+
+  :global {
+    tbody {
+      height: 100px;
+      overflow: auto;
+    }
+  }
+}

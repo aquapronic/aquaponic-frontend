@@ -1,19 +1,22 @@
 import ReactECharts from 'echarts-for-react';
+import { Header } from 'semantic-ui-react';
+import styles from './WaterTempChart.module.scss';
 
-function FishDataChart() {
-  const minValue = 100
-  const maxValue = 450
+function WaterTempChart() {
+  const minValue = 100;
+  const maxValue = 450;
 
   const option = {
+    grid: { top: '18%', left: '12%', right: '15%', bottom: '15%' },
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
     },
     xAxis: {
       name: 'Time',
       type: 'time',
     },
     yAxis: {
-      name: 'pH',
+      name: 'Temp (°C)',
       type: 'value',
     },
     series: [
@@ -43,7 +46,12 @@ function FishDataChart() {
       },
     ],
   };
-  return <ReactECharts option={option} />;
+  return (
+    <div className={styles.container}>
+      <Header size="large">Water Temperature</Header>
+      <ReactECharts className={styles.chart} option={option} />
+    </div>
+  );
 }
 
-export default FishDataChart;
+export default WaterTempChart;

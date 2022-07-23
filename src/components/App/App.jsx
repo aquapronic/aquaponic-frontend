@@ -1,8 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Sidebar } from 'semantic-ui-react';
+import Router from '~/src/components/Router/Router';
 import SidebarMenu from '~/src/components/SidebarMenu/SidebarMenu';
-import DashboardPage from '~/src/pages/dashboard/DashboardPage';
-import HomePage from '~/src/pages/home/HomePage';
 import styles from './App.module.scss';
 
 function App() {
@@ -10,10 +8,7 @@ function App() {
     <Sidebar.Pushable className={styles.sidebar}>
       <SidebarMenu />
       <Sidebar.Pusher>
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/dashboard" element={<DashboardPage />}></Route>
-          </Routes>
+        <Router />
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );

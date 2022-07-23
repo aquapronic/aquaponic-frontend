@@ -1,0 +1,17 @@
+@import "~/src/style/variables.scss";
+
+.container {
+  :global {
+    .header {
+      margin: 0 0 0.5rem !important;
+    }
+  }
+}
+
+.chart {
+  height: 250px !important;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid rgba(34,36,38,.15);
+  box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+}

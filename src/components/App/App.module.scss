@@ -1,13 +1,17 @@
+@import '~/src/style/variables.scss';
+
 .sidebar {
   :global {
-    .sidebar.visible + .pusher > .page-root {
-      width: calc(100% - 150px);
+    .sidebar.visible + .pusher {
+      transform: translate3d($sidebar-width, 0, 0) !important;
+      > .page-root {
+        width: calc(100% - $sidebar-width);
+      }
     }
 
     .page-root {
       width: 100%;
-      transition: all 0.5s ease;
-      padding: 1rem !important;
+      transition: width 0.5s ease;
     }
   }
 }

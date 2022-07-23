@@ -1,28 +1,31 @@
 import classNames from 'classnames';
-import { Grid, Header } from 'semantic-ui-react';
-import FishDataChart from '~/src/components/FishDataChart/FishDataChart';
-import FishWaterChangeTable from '~/src/components/FishWaterChangeTable/FishWaterChangeTable';
-import PlantDataChart from '~/src/components/PlantDataChart/PlantDataChart';
+import { useParams } from 'react-router-dom';
+import { Grid, Header, Segment } from 'semantic-ui-react';
+import AirTempChart from '~/src/components/AirTempChart/AirTempChart';
+import WaterChangeTable from '~/src/components/WaterChangeTable/WaterChangeTable';
+import WaterPhChart from '~/src/components/WaterPhChart/WaterPhChart';
+import WaterTempChart from '~/src/components/WaterTempChart/WaterTempChart';
 import styles from './DashboardPage.module.scss';
 
 function DashboardPage() {
+  const params = useParams();
+
   return (
-    <Grid stackable padded className={classNames('page-root', styles.pageRoot)}>
-      <Grid.Row>
-        <Grid.Column width={16}>
-          <Header size="huge">Aquaponic Dashboard</Header>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column width={8}>
-          <FishDataChart />
-          <PlantDataChart />
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <FishWaterChangeTable />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <Segment basic className={classNames('page-root')}>
+      <Header size="huge">Farms {'>'} {params.farmId}</Header>
+      <Grid stackable>
+        <Grid.Row>
+          <Grid.Column width={8}>
+            <WaterPhChart />
+            <WaterTempChart />
+            <AirTempChart />
+          </Grid.Column>
+          <Grid.Column width={8}>
+            <WaterChangeTable />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Segment>
   );
 }
 

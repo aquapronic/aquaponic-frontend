@@ -1,11 +1,22 @@
 import { ethers } from 'ethers';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 const AppDataContext = createContext();
 
 export function AppDataProvider({ children }) {
   const [signer, setSigner] = useState(null);
   const [signerAddr, setSignerAddr] = useState(null);
+
+  const connectWallet = useCallback(async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      await provider.send('eth_requestAccounts', []);
+      const signer = provider.getSigner();
+      setSigner(signer);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   useEffect(() => {
     async function getSignerAddress() {
@@ -17,7 +28,7 @@ export function AppDataProvider({ children }) {
           setSignerAddr(null);
         }
       } catch (e) {
-        setSigner(null)
+        setSigner(null);
       }
     }
     getSignerAddress();
@@ -38,7 +49,7 @@ export function AppDataProvider({ children }) {
     init();
   }, []);
 
-  return <AppDataContext.Provider value={{ signer, signerAddr, setSigner }}>{children}</AppDataContext.Provider>;
+  return <AppDataContext.Provider value={{ signer, signerAddr, setSigner, connectWallet }}>{children}</AppDataContext.Provider>;
 }
 
 export function useAppData() {

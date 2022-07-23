@@ -1,12 +1,13 @@
 import ReactECharts from 'echarts-for-react';
 import { Header } from 'semantic-ui-react';
-import styles from './PlantDataChart.module.scss';
+import styles from './WaterPhChart.module.scss';
 
-function PlantDataChart() {
+function WaterPhChart() {
   const minValue = 100;
-  const maxValue = 150;
+  const maxValue = 450;
 
   const option = {
+    grid: { top: '18%', left: '12%', right: '15%', bottom: '15%' },
     tooltip: {
       trigger: 'axis',
     },
@@ -22,14 +23,14 @@ function PlantDataChart() {
       {
         name: 'pH Value',
         data: [
-          ['2019-10-10', 100],
-          ['2019-10-11', 160],
-          ['2019-10-12', 150],
-          ['2019-10-13', 180],
-          ['2019-10-14', 150],
-          ['2019-10-15', 100],
-          ['2019-10-16', 150],
-          ['2019-10-17', 100],
+          ['2019-10-10', 200],
+          ['2019-10-11', 560],
+          ['2019-10-12', 750],
+          ['2019-10-13', 580],
+          ['2019-10-14', 250],
+          ['2019-10-15', 300],
+          ['2019-10-16', 450],
+          ['2019-10-17', 300],
           ['2019-10-18', 100],
         ],
         type: 'line',
@@ -47,10 +48,10 @@ function PlantDataChart() {
   };
   return (
     <div className={styles.container}>
-      <Header size="large">Plant data</Header>
-      <ReactECharts option={option} />
+      <Header size="large">Water pH</Header>
+      <ReactECharts className={styles.chart} option={option} />
     </div>
   );
 }
 
-export default PlantDataChart;
+export default WaterPhChart;
