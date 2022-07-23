@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from '~/src/components/App/App';
+import reportWebVitals from '~/src/reportWebVitals';
+import 'semantic-ui-css/semantic.min.css'
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
