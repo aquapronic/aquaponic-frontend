@@ -77,7 +77,7 @@ function DashboardPage() {
     async function fetchWaterExchangeData() {
       const waterExchangeRecords = await waterExchangeRecordContract
         .connect(signer)
-        .getByFarmIdSince(params.farmId, 1658174400);
+        .getByFarmIdSince(params.farmId, 0);
       const newWaterExchangeRecords = waterExchangeRecords.map((record) => ({
         id: record.id.toString(),
         timestamp: moment(parseInt(record.timestamp.toString()) * 1000).format(DEFAULT_TIMESTAMP_FORMAT),
@@ -104,8 +104,9 @@ function DashboardPage() {
 
   const renderContent = () => {
     if (loading) {
-      return <Loader active />;
+      return <Loader size='large' active />;
     }
+
     return (
       <Grid stackable>
         <Grid.Row>
@@ -127,9 +128,10 @@ function DashboardPage() {
     <Segment basic className={classNames('page-root')}>
       <Header size="huge">
         <Breadcrumb
+          className={styles.breadcrumb}
           icon="right angle"
           sections={[
-            { key: 'farms', content: 'Farms', link: true, onClick: () => navigate('/dashboards') },
+            { key: 'farms', content: 'Dashboards', link: true, onClick: () => navigate('/dashboards') },
             { key: 'farmName', content: farmInfo.name, active: true },
           ]}
         />

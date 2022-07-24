@@ -21,7 +21,7 @@ function WaterTempChart({ data }) {
     },
     series: [
       {
-        name: 'pH Value',
+        name: 'Water Temperature',
         data,
         type: 'line',
         markLine: {

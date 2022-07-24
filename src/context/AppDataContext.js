@@ -1,11 +1,14 @@
 import { ethers } from 'ethers';
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 const AppDataContext = createContext();
 
 export function AppDataProvider({ children }) {
+  const [isInitialized, setIsInitialized] = useState(false);
   const [signer, setSigner] = useState(null);
   const [signerAddr, setSignerAddr] = useState(null);
+
+  const isConnected = useMemo(() => Boolean(signerAddr), [signerAddr]);
 
   const connectWallet = useCallback(async () => {
     try {
@@ -45,11 +48,17 @@ export function AppDataProvider({ children }) {
           setSigner(newSigner);
         });
       }
+
+      setTimeout(() => setIsInitialized(true), 500);
     }
     init();
   }, []);
 
-  return <AppDataContext.Provider value={{ signer, signerAddr, setSigner, connectWallet }}>{children}</AppDataContext.Provider>;
+  return (
+    <AppDataContext.Provider value={{ isInitialized, isConnected, signer, signerAddr, setSigner, connectWallet }}>
+      {children}
+    </AppDataContext.Provider>
+  );
 }
 
 export function useAppData() {

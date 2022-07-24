@@ -1,14 +1,5 @@
 @import '~/src/style/variables.scss';
 
-.container {
-  :global {
-    .header {
-      color: $chart-title-color !important;
-      margin: 1.25rem 0 0.5rem !important;
-    }
-  }
-}
-
 .tableContainer {
   max-height: 400px;
   overflow: auto;
@@ -26,11 +17,6 @@
       position: sticky;
       top: 0px;
       margin: 0 0 0 0;
-    }
-
-    tbody {
-      height: 100px;
-      overflow: auto;
     }
   }
 }

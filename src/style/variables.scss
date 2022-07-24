@@ -1,4 +1,11 @@
 $sidebar-width: 100px;
 
-$sidebar-bgcolor: #FFFFFF;
-$page-bgcolor: #F1F1F1;
+$signer-address-color: #2B7A0B;
+$sidebar-color: #FFFFFF;
+$sidebar-bgcolor: #5BB318;
+$page-bgcolor: lighten(#D4F6CC, 7%);
+
+$text-color: darken(#2B7A0B, 7%);
+$chart-title-color: darken(#2B7A0B, 5%);
+$chart-border: none;
+$chart-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;

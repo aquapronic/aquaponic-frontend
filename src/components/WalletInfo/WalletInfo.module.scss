@@ -20,6 +20,8 @@
   padding: 0.25rem;
   font-size: 0.75em;
   font-weight: bold;
+  color: $signer-address-color;
+  background-color: $page-bgcolor;
   border: 1px solid rgba(34, 36, 38, 0.15);
   border-radius: 4px;
   overflow: hidden;

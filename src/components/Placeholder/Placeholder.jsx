@@ -1,12 +1,8 @@
-import { Icon, Segment, Label } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import styles from './Placeholder.module.scss';
 
-function Placeholder({ farm }) {
-  return (
-    <Segment>
-      No results found
-    </Segment>
-  );
+function Placeholder({ content }) {
+  return <Segment className={styles.container}>{content || 'No results found'}</Segment>;
 }
 
 export default Placeholder;

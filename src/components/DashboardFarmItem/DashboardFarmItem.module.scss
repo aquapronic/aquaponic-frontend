@@ -6,6 +6,10 @@
   grid-template-columns: 1fr 200px 200px 100px;
   justify-items: end;
   align-items: center;
+  color: $text-color;
+  border: none !important;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
   cursor: pointer;
 
   :global {
@@ -17,4 +21,5 @@
 
 .farmName {
   justify-self: start;
+  font-size: 1.2em;
 }

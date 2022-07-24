@@ -21,7 +21,7 @@ function AirTempChart({ data }) {
     },
     series: [
       {
-        name: 'pH Value',
+        name: 'Air Temperature',
         data,
         type: 'line',
         markLine: {

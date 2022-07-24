@@ -18,7 +18,7 @@ function WaterPhChart({ data }) {
     },
     series: [
       {
-        name: 'pH Value',
+        name: 'Water pH',
         data: data,
         type: 'line',
         markLine: {

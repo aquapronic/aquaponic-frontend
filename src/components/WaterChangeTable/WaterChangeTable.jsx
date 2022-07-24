@@ -42,9 +42,9 @@ function WaterChangeTable({ data }) {
               prepareRow(row);
               return (
                 <Table.Row {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return <Table.Cell {...cell.getCellProps()}>{cell.render('Cell')}</Table.Cell>;
-                  })}
+                  {row.cells.map((cell) => (
+                    <Table.Cell {...cell.getCellProps()}>{cell.render('Cell')}</Table.Cell>
+                  ))}
                 </Table.Row>
               );
             })}

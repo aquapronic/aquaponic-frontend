@@ -8,14 +8,14 @@ import { useContract } from '~/src/context/ContractContext';
 import styles from './DashboardListPage.module.scss';
 
 function DashboardListPage() {
-  const { signer } = useAppData();
+  const { isInitialized, isConnected, signer } = useAppData();
   const { farmContract } = useContract();
   const [farmList, setFarmList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      if (signer && farmContract) {
+      if (isConnected) {
         setLoading(true);
         const newFarmList = await farmContract.connect(signer).getAllMyFarms();
         setFarmList(
@@ -27,14 +27,20 @@ function DashboardListPage() {
           }))
         );
         setLoading(false);
+      } else {
+        setLoading(false);
       }
     }
     fetchData();
-  }, [signer, farmContract]);
+  }, [isConnected, signer, farmContract]);
 
   const renderContent = () => {
-    if (loading) {
-      return <Loader active />;
+    if (!isInitialized || loading) {
+      return <Loader size="large" active />;
+    }
+
+    if (!isConnected) {
+      return <Placeholder content="Please connect your wallet first" />;
     }
 
     if (farmList.length === 0) {
@@ -46,7 +52,9 @@ function DashboardListPage() {
 
   return (
     <Segment basic className={classNames('page-root')}>
-      <Header size="huge">Farms</Header>
+      <Header className={styles.header} size="huge">
+        Dashboards
+      </Header>
       {renderContent()}
     </Segment>
   );

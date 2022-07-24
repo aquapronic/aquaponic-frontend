@@ -3,4 +3,13 @@
 .sidebar {
   width: $sidebar-width !important;
   background-color: $sidebar-bgcolor !important;
+  border: none !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+
+  :global {
+    color: $sidebar-color;
+    .item {
+      color: $sidebar-color !important;
+    }
+  }
 }
