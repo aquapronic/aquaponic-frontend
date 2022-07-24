@@ -19,17 +19,14 @@ contract MeasurementRecord {
     mapping(uint => uint) measurementCount;
     mapping(uint => mapping(uint => Measurement)) measurements;
 
-    function record(uint _farm_id, uint _value) public returns(uint, uint, uint){
+    function record(uint _farm_id, uint _value) public returns(Measurement memory){
         if(measurementCount[_farm_id] == 0){
             farmCount += 1;
         }
         measurements[_farm_id][measurementCount[_farm_id]] = Measurement(block.timestamp, _value);
         measurementCount[_farm_id] += 1;
-        return (
-            _farm_id,
-            measurements[_farm_id][measurementCount[_farm_id]-1].timestamp,
-            measurements[_farm_id][measurementCount[_farm_id]-1].value
-        );
+        
+        return measurements[_farm_id][measurementCount[_farm_id]-1];
     }
 
     function getAllMeasurementForAFarm(uint _farm_id) public view returns (Measurement[] memory){

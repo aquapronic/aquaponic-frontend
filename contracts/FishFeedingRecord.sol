@@ -10,11 +10,11 @@ pragma solidity >=0.7.0 <0.9.0;
 contract FishFeedingRecord {
     
     struct FeedRecord {
-        uint _id;
-        uint _farm_id;
-        string _formula;
-        uint _quantity;
-        uint _timestamp;
+        uint id;
+        uint farm_id;
+        string formula;
+        uint quantity;
+        uint timestamp;
     }
 
     uint256 feedRecordCount = 0;
@@ -22,22 +22,14 @@ contract FishFeedingRecord {
     mapping(uint => mapping(uint => FeedRecord)) feedRecordByFarmMapping;
 
 
-    function feedFish(uint _farm_id, string memory _formula, uint _quantity) public returns(uint, uint, string memory, uint, uint){
+    function feedFish(uint _farm_id, string memory _formula, uint _quantity) public returns(FeedRecord memory){
         feedRecordByFarmMapping[_farm_id][ feedRecordByFarmCount[_farm_id] ] =
             FeedRecord(feedRecordCount, _farm_id ,_formula, _quantity, block.timestamp);
 
         feedRecordCount += 1;
         feedRecordByFarmCount[_farm_id] += 1;
 
-        FeedRecord memory f = feedRecordByFarmMapping[_farm_id][ feedRecordByFarmCount[_farm_id] - 1];
-
-        return (
-            f._id,
-            f._farm_id,
-            f._formula,
-            f._quantity,
-            f._timestamp
-        );
+        return feedRecordByFarmMapping[_farm_id][ feedRecordByFarmCount[_farm_id] - 1];
     }
 
 
@@ -46,7 +38,7 @@ contract FishFeedingRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<feedRecordByFarmCount[_farm_id]; i++){
-            if(feedRecordByFarmMapping[_farm_id][i]._timestamp < _since_timestamp){
+            if(feedRecordByFarmMapping[_farm_id][i].timestamp < _since_timestamp){
                 continue;
             } else {
                 retBuffer[retBufferCount] = feedRecordByFarmMapping[_farm_id][i];
@@ -67,9 +59,9 @@ contract FishFeedingRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<feedRecordByFarmCount[_farm_id]; i++){
-            if(feedRecordByFarmMapping[_farm_id][i]._timestamp < _from_timestamp){
+            if(feedRecordByFarmMapping[_farm_id][i].timestamp < _from_timestamp){
                 continue;
-            } else if (feedRecordByFarmMapping[_farm_id][i]._timestamp > _to_timestamp) {
+            } else if (feedRecordByFarmMapping[_farm_id][i].timestamp > _to_timestamp) {
                 break;
             } else {
                 retBuffer[retBufferCount] = feedRecordByFarmMapping[_farm_id][i];

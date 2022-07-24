@@ -22,6 +22,11 @@ contract WaterExchangeRecord {
     mapping(uint => mapping(uint => ExchangeRecord)) exchangeRecordByFarmMapping;
 
     constructor(){
+        recordInit(1, 1655629200);
+        recordInit(1, 1656234000);
+        recordInit(1, 1656838800);
+        recordInit(1, 1657357200);
+        recordInit(1, 1657875600);
         recordInit(1, 1658174400);
         recordInit(1, 1658520000);
     }
@@ -35,20 +40,14 @@ contract WaterExchangeRecord {
     }
 
 
-    function exchangeWater(uint _farm_id) public returns(uint, uint, uint){
+    function exchangeWater(uint _farm_id) public returns(ExchangeRecord memory){
         exchangeRecordByFarmMapping[_farm_id][ exchangeRecordByFarmCount[_farm_id] ] =
             ExchangeRecord(exchangeRecordCount, _farm_id, block.timestamp);
 
         exchangeRecordCount += 1;
         exchangeRecordByFarmCount[_farm_id] += 1;
 
-        ExchangeRecord memory er = exchangeRecordByFarmMapping[_farm_id][ exchangeRecordByFarmCount[_farm_id] - 1];
-
-        return (
-            er.id,
-            er.farm_id,
-            er.timestamp
-        );
+        return exchangeRecordByFarmMapping[_farm_id][ exchangeRecordByFarmCount[_farm_id] - 1];
     }
 
 

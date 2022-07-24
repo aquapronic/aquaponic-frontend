@@ -12,13 +12,13 @@ contract Certificate {
     enum CertificateUnitStatus { ACTIVE, INACTIVE }
 
     struct CertificateUnit {
-        uint _id;
-        CertificateUnitStatus _status;
-        uint _referenced_request_id;
-        uint _farm_id;
-        address _agriculturist_id;
-        uint _issue_datetime;
-        address _issuer;
+        uint id;
+        CertificateUnitStatus status;
+        uint referenced_request_id;
+        uint farm_id;
+        address agriculturist_id;
+        uint issue_datetime;
+        address issuer;
     }
 
     uint256 certificateCount = 0;
@@ -34,7 +34,7 @@ contract Certificate {
 
     function issueNewCertificate(uint _referenced_request_id, uint _farm_id, address _agriculturist_id) 
         public 
-        returns(uint, CertificateUnitStatus, uint, uint, address, uint, address) 
+        returns(CertificateUnit memory) 
     {
 
         uint currentTime = block.timestamp;
@@ -49,15 +49,7 @@ contract Certificate {
         certificateByAgriculturistCount[_agriculturist_id] += 1;
         certificateByFarmIdCount[_farm_id] += 1;
 
-        return (
-            certificates[certificateCount-1]._id,
-            certificates[certificateCount-1]._status,
-            certificates[certificateCount-1]._referenced_request_id,
-            certificates[certificateCount-1]._farm_id,
-            certificates[certificateCount-1]._agriculturist_id,
-            certificates[certificateCount-1]._issue_datetime,
-            certificates[certificateCount-1]._issuer
-        );
+        return certificates[certificateCount-1];
     }
 
     function getById(uint _id) public view returns(CertificateUnit memory) {
@@ -73,4 +65,7 @@ contract Certificate {
 
         return ret;
     } 
+
+
+   
 }

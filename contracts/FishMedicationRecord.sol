@@ -10,11 +10,11 @@ pragma solidity >=0.7.0 <0.9.0;
 contract FishMedicationRecord {
     
     struct MedicationRecord {
-        uint _id;
-        uint _farm_id;
-        string _formula;
-        uint _quantity;
-        uint _timestamp;
+        uint id;
+        uint farm_id;
+        string formula;
+        uint quantity;
+        uint timestamp;
     }
 
     uint256 medicationRecordCount = 0;
@@ -22,22 +22,14 @@ contract FishMedicationRecord {
     mapping(uint => mapping(uint => MedicationRecord)) medicationRecordByFarmMapping;
 
 
-    function medicateFish(uint _farm_id, string memory _formula, uint _quantity) public returns(uint, uint, string memory, uint, uint){
+    function medicateFish(uint _farm_id, string memory _formula, uint _quantity) public returns(MedicationRecord memory){
         medicationRecordByFarmMapping[_farm_id][ medicationRecordByFarmCount[_farm_id] ] =
             MedicationRecord(medicationRecordCount, _farm_id ,_formula, _quantity, block.timestamp);
 
         medicationRecordCount += 1;
         medicationRecordByFarmCount[_farm_id] += 1;
 
-        MedicationRecord memory m = medicationRecordByFarmMapping[_farm_id][ medicationRecordByFarmCount[_farm_id] - 1];
-
-        return (
-            m._id,
-            m._farm_id,
-            m._formula,
-            m._quantity,
-            m._timestamp
-        );
+        return medicationRecordByFarmMapping[_farm_id][ medicationRecordByFarmCount[_farm_id] - 1];
     }
 
 
@@ -46,7 +38,7 @@ contract FishMedicationRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<medicationRecordByFarmCount[_farm_id]; i++){
-            if(medicationRecordByFarmMapping[_farm_id][i]._timestamp < _since_timestamp){
+            if(medicationRecordByFarmMapping[_farm_id][i].timestamp < _since_timestamp){
                 continue;
             } else {
                 retBuffer[retBufferCount] = medicationRecordByFarmMapping[_farm_id][i];
@@ -67,9 +59,9 @@ contract FishMedicationRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<medicationRecordByFarmCount[_farm_id]; i++){
-            if(medicationRecordByFarmMapping[_farm_id][i]._timestamp < _from_timestamp){
+            if(medicationRecordByFarmMapping[_farm_id][i].timestamp < _from_timestamp){
                 continue;
-            } else if (medicationRecordByFarmMapping[_farm_id][i]._timestamp > _to_timestamp) {
+            } else if (medicationRecordByFarmMapping[_farm_id][i].timestamp > _to_timestamp) {
                 break;
             } else {
                 retBuffer[retBufferCount] = medicationRecordByFarmMapping[_farm_id][i];

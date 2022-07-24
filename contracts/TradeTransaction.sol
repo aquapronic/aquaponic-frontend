@@ -10,13 +10,13 @@ pragma solidity >=0.7.0 <0.9.0;
 contract TradeTransaction {
 
     struct Transaction {
-        uint _id;
-        address _buyer_id;
-        address _agriculturist_id;
-        uint _lot_number;
-        uint _quantity_purchased;
-        uint _value;
-        uint _timestamp;
+        uint id;
+        address buyer_id;
+        address agriculturist_id;
+        uint lot_number;
+        uint quantity_purchased;
+        uint value;
+        uint timestamp;
     }
 
     uint256 transactionCount = 0;
@@ -32,7 +32,7 @@ contract TradeTransaction {
 
     function create(address _agriculturist_id, uint _lot_number, uint _quantity_purchased, uint _value) 
         public 
-        returns(uint, address, address, uint, uint, uint, uint) 
+        returns(Transaction memory) 
     {
 
         uint currentTime = block.timestamp;
@@ -49,17 +49,7 @@ contract TradeTransaction {
         transactionByLotNumberCount[_lot_number] += 1;
         transactionByAgriculturistCount[_agriculturist_id] += 1;
 
-
-
-        return (
-            transactions[transactionCount-1]._id,
-            transactions[transactionCount-1]._buyer_id,
-            transactions[transactionCount-1]._agriculturist_id,
-            transactions[transactionCount-1]._lot_number,
-            transactions[transactionCount-1]._quantity_purchased,
-            transactions[transactionCount-1]._value,
-            transactions[transactionCount-1]._timestamp
-        );
+        return transactions[transactionCount-1];
     }
 
     function getById(uint _id) public view returns(Transaction memory) {
