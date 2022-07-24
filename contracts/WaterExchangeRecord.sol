@@ -8,6 +8,8 @@ pragma solidity >=0.7.0 <0.9.0;
  * @dev Store & retrieve fish tank water exchange information
  */
 contract WaterExchangeRecord {
+
+
     
     struct ExchangeRecord {
         uint _id;
@@ -18,6 +20,19 @@ contract WaterExchangeRecord {
     uint256 exchangeRecordCount = 0;
     mapping(uint => uint) exchangeRecordByFarmCount;
     mapping(uint => mapping(uint => ExchangeRecord)) exchangeRecordByFarmMapping;
+
+    constructor(){
+        recordInit(1, 1658174400);
+        recordInit(1, 1658520000);
+    }
+
+    function recordInit(uint _farm_id, uint _timestamp) internal{
+        exchangeRecordByFarmMapping[_farm_id][ exchangeRecordByFarmCount[_farm_id] ] =
+            ExchangeRecord(exchangeRecordCount, _farm_id, _timestamp);
+
+        exchangeRecordCount += 1;
+        exchangeRecordByFarmCount[_farm_id] += 1;
+    }
 
 
     function exchangeWater(uint _farm_id) public returns(uint, uint, uint){
