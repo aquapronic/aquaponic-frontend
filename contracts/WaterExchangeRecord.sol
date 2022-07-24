@@ -12,9 +12,9 @@ contract WaterExchangeRecord {
 
     
     struct ExchangeRecord {
-        uint _id;
-        uint _farm_id;
-        uint _timestamp;
+        uint id;
+        uint farm_id;
+        uint timestamp;
     }
 
     uint256 exchangeRecordCount = 0;
@@ -45,9 +45,9 @@ contract WaterExchangeRecord {
         ExchangeRecord memory er = exchangeRecordByFarmMapping[_farm_id][ exchangeRecordByFarmCount[_farm_id] - 1];
 
         return (
-            er._id,
-            er._farm_id,
-            er._timestamp
+            er.id,
+            er.farm_id,
+            er.timestamp
         );
     }
 
@@ -57,7 +57,7 @@ contract WaterExchangeRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<exchangeRecordByFarmCount[_farm_id]; i++){
-            if(exchangeRecordByFarmMapping[_farm_id][i]._timestamp < _since_timestamp){
+            if(exchangeRecordByFarmMapping[_farm_id][i].timestamp < _since_timestamp){
                 continue;
             } else {
                 retBuffer[retBufferCount] = exchangeRecordByFarmMapping[_farm_id][i];
@@ -78,9 +78,9 @@ contract WaterExchangeRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<exchangeRecordByFarmCount[_farm_id]; i++){
-            if(exchangeRecordByFarmMapping[_farm_id][i]._timestamp < _from_timestamp){
+            if(exchangeRecordByFarmMapping[_farm_id][i].timestamp < _from_timestamp){
                 continue;
-            } else if (exchangeRecordByFarmMapping[_farm_id][i]._timestamp > _to_timestamp) {
+            } else if (exchangeRecordByFarmMapping[_farm_id][i].timestamp > _to_timestamp) {
                 break;
             } else {
                 retBuffer[retBufferCount] = exchangeRecordByFarmMapping[_farm_id][i];

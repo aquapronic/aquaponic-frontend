@@ -11,8 +11,8 @@ contract MeasurementRecord {
 
     
     struct Measurement {
-        uint _timestamp;
-        uint _value;
+        uint timestamp;
+        uint value;
     }
 
     uint256 farmCount = 0;
@@ -27,8 +27,8 @@ contract MeasurementRecord {
         measurementCount[_farm_id] += 1;
         return (
             _farm_id,
-            measurements[_farm_id][measurementCount[_farm_id]-1]._timestamp,
-            measurements[_farm_id][measurementCount[_farm_id]-1]._value
+            measurements[_farm_id][measurementCount[_farm_id]-1].timestamp,
+            measurements[_farm_id][measurementCount[_farm_id]-1].value
         );
     }
 
@@ -47,7 +47,7 @@ contract MeasurementRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<measurementCount[_farm_id]; i++){
-            if(measurements[_farm_id][i]._timestamp < _since_timestamp){
+            if(measurements[_farm_id][i].timestamp < _since_timestamp){
                 continue;
             } else {
                 retBuffer[retBufferCount] = measurements[_farm_id][i];
@@ -69,9 +69,9 @@ contract MeasurementRecord {
 
         uint retBufferCount = 0;
         for(uint i=0; i<measurementCount[_farm_id]; i++){
-            if(measurements[_farm_id][i]._timestamp < _from_timestamp){
+            if(measurements[_farm_id][i].timestamp < _from_timestamp){
                 continue;
-            } else if(measurements[_farm_id][i]._timestamp > _to_timestamp){
+            } else if(measurements[_farm_id][i].timestamp > _to_timestamp){
                 break;
             } else {
                 retBuffer[retBufferCount] = measurements[_farm_id][i];
@@ -87,5 +87,7 @@ contract MeasurementRecord {
 
         return ret;
     }
+
+    
     
 }
