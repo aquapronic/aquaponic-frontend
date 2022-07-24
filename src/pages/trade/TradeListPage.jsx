@@ -15,13 +15,13 @@ import styles from './TradeListPage.module.scss';
 function TradeListPage() {
   const { isInitialized, isConnected, signer } = useAppData();
   const { farmContract, plantLotContract, fishLotContract } = useContract();
-  const [fishLots, setFishLots] = useState();
-  const [plantLots, setPlantLots] = useState();
+  const [plantLots, setPlantLots] = useState([]);
+  const [fishLots, setFishLots] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      if (isConnected) {
+      if (isConnected && signer) {
         setLoading(true);
 
         const fetchedPlantLots = await plantLotContract.connect(signer).getByStatus(LOT_STATUS.HARVESTED);
@@ -57,7 +57,7 @@ function TradeListPage() {
       }
     }
     fetchData();
-  }, [isConnected, signer]);
+  }, [isConnected, signer, farmContract, plantLotContract, fishLotContract]);
 
   const renderContent = () => {
     if (!isInitialized || loading) {

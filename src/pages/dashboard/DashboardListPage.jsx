@@ -15,7 +15,7 @@ function DashboardListPage() {
 
   useEffect(() => {
     async function fetchData() {
-      if (isConnected) {
+      if (isConnected && signer) {
         setLoading(true);
         const newFarmList = await farmContract.connect(signer).getAllMyFarms();
         setFarmList(
