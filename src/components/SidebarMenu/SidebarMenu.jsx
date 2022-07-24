@@ -9,6 +9,10 @@ function SidebarMenu() {
     <Sidebar className={styles.sidebar} as={Menu} animation="push" icon="labeled" vertical visible>
       <WalletInfo />
       <Menu.Item as="a" onClick={() => navigate('/')}>
+        <Icon name="home" />
+        Home
+      </Menu.Item>
+      <Menu.Item as="a" onClick={() => navigate('/dashboards')}>
         <Icon name="chart area" />
         Dashboards
       </Menu.Item>

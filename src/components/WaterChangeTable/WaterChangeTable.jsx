@@ -1,42 +1,15 @@
-import moment from 'moment';
 import { useMemo } from 'react';
 import { useTable } from 'react-table';
 import { Header, Table } from 'semantic-ui-react';
-import { DEFAULT_TIMESTAMP_FORMAT } from '~/src/constants';
 import styles from './WaterChangeTable.module.scss';
 
-function WaterChangeTable() {
-  const data = useMemo(
-    () => [
-      {
-        index: 1,
-        timestamp: moment().format(DEFAULT_TIMESTAMP_FORMAT),
-      },
-      {
-        index: 1,
-        timestamp: moment().format(DEFAULT_TIMESTAMP_FORMAT),
-      },
-      {
-        index: 1,
-        timestamp: moment().format(DEFAULT_TIMESTAMP_FORMAT),
-      },
-      {
-        index: 1,
-        timestamp: moment().format(DEFAULT_TIMESTAMP_FORMAT),
-      },
-      {
-        index: 1,
-        timestamp: moment().format(DEFAULT_TIMESTAMP_FORMAT),
-      },
-    ],
-    []
-  );
+function WaterChangeTable({ data }) {
   const tableOptions = useMemo(
     () => ({
       columns: [
         {
           Header: 'Index',
-          accessor: 'index',
+          accessor: 'id',
         },
         {
           Header: 'Timestamp',
@@ -52,30 +25,32 @@ function WaterChangeTable() {
 
   return (
     <div className={styles.container}>
-      <Header size="large">Fish Tank Water Change</Header>
-      <Table {...getTableProps()} celled className={styles.table}>
-        <Table.Header>
-          {headerGroups.map((headerGroup) => (
-            <Table.Row {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <Table.HeaderCell {...column.getHeaderProps()}>{column.render('Header')}</Table.HeaderCell>
-              ))}
-            </Table.Row>
-          ))}
-        </Table.Header>
-        <Table.Body {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <Table.Row {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <Table.Cell {...cell.getCellProps()}>{cell.render('Cell')}</Table.Cell>;
-                })}
+      <Header size="large">Water Change Records</Header>
+      <div className={styles.tableContainer}>
+        <Table {...getTableProps()} celled className={styles.table}>
+          <Table.Header>
+            {headerGroups.map((headerGroup) => (
+              <Table.Row {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <Table.HeaderCell {...column.getHeaderProps()}>{column.render('Header')}</Table.HeaderCell>
+                ))}
               </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+            ))}
+          </Table.Header>
+          <Table.Body {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <Table.Row {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return <Table.Cell {...cell.getCellProps()}>{cell.render('Cell')}</Table.Cell>;
+                  })}
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table>
+      </div>
     </div>
   );
 }
